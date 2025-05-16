@@ -1,0 +1,29 @@
+from collections import deque
+moves = [
+    (2,1),(2,-1),(-2,1),(-2,-1),
+    (1,2),(1,-2),(-1,2),(-1,-2)
+]
+def knight(N,a,b,c,d):
+    if (a,b) == (c,d):
+      return 0
+    q =deque([(a,b,0)])
+    visited = set()
+    visited.add((a,b))
+    while q:
+     p,u,t = q.popleft()
+     if (p,u) == (c,d):
+       return t
+     for g,h in moves:
+       k,l = p + g, u + h
+       if not (1 <= k <= N and 1 <= l <= N):
+         continue
+       if (k,l) in visited:
+         continue
+       visited.add((k,l))
+       q.append((k,l,t+1))
+    return -1
+
+N = int(input())
+a,b,c,d = map(int, input().split())
+final_output =knight(N,a,b,c,d)
+print(final_output)

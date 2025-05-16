@@ -1,0 +1,32 @@
+import sys
+from collections import deque
+N, M = map(int, input().split())
+g = [[] for _ in range(N + 1)]
+for _ in range(M):
+ u, v = map(int, input().split())
+ g[u].append(v)
+ g[v].append(u)
+marked = [-1]*(N + 1)
+highest = 0
+for i in range(1, N + 1):
+  if marked[i] == -1:
+    q = deque([i])
+    marked[i] = 1
+    initated = 1
+    h = 0
+    while q:
+      r = q.popleft()
+      for j in g[r]:
+        if marked[j] == -1:
+          marked[j] = 1 - marked[r]
+          if marked[j] == 1:
+             initated+= 1
+          else:
+            h+=1
+          q.append(j)
+        elif marked[j] == marked[r]:
+          print(-1)
+          sys.exit()
+    highest += max(initated,h)
+
+print(highest)
