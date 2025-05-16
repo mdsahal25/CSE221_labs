@@ -1,0 +1,40 @@
+import sys
+sys.setrecursionlimit(2 * 10**5 + 10)
+a,b = map(int,input().split())
+l = [[] for _ in range(a + 1)]
+for _ in range(b):
+   u,v = map(int, input().split())
+   l[u].append(v)
+stack = []
+situation= [0] * (a + 1)
+required_value= False
+for j in range(1,a + 1):
+  if situation[j] != 0:
+    continue
+  stack.append((j, 0))
+  path = []
+  while stack:
+      p, q = stack[-1]
+      if situation[p] == 0:
+        situation[p] = 1
+        path.append(p)
+      if q >= len(l[p]):
+        situation[p] = 2
+        stack.pop()
+        path.pop()
+        continue
+      adjacent = l[p][q]
+      stack[-1] = (p,q + 1)
+      if situation[adjacent] == 0:
+        stack.append((adjacent, 0))
+      elif situation[adjacent] == 1:
+        required_value = True
+        break
+
+  if required_value:
+     break
+
+if required_value:
+  print("YES")
+else:
+  print("NO")

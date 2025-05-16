@@ -1,0 +1,52 @@
+from collections import deque
+a,b,c,d,e= map(int, input().split())
+g=[[] for _ in range(a+1)]
+for _ in range(b):
+   u, v = map(int, input().split())
+   g[u].append(v)
+
+extension=[-1]*(a + 1)
+previous=[-1]*(a + 1)
+queue =deque([c])
+extension[c] = 0
+
+while queue:
+  n = queue.popleft()
+  for j in g[n]:
+    if extension[j] == -1:
+       extension[j] = extension[n] + 1
+       previous[j] = n
+       queue.append(j)
+
+extension1= [-1] * (a + 1)
+previous1 = [-1] * (a + 1)
+queue = deque([e])
+extension1[e] = 0
+
+while queue:
+    n = queue.popleft()
+    for j in g[n]:
+      if extension1[j] == -1:
+        extension1[j] = extension1[n] + 1
+        previous1[j] = n
+        queue.append(j)
+if extension[e] == -1 or extension1[d] == -1:
+    print(-1)
+else:
+    t =[]
+    n = e
+    while n != -1:
+        t.append(n)
+        n = previous[n]
+    t.reverse()
+    q =[]
+    n = d
+    while n!= -1:
+      q.append(n)
+      n = previous1[n]
+    q.reverse()
+    t.pop()
+    total = t + q
+    final = extension[e]+extension1[d]
+    print(final)
+    print(' '.join(map(str, total)))

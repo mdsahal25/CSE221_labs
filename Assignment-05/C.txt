@@ -1,0 +1,44 @@
+from collections import deque
+a,b,c,d=map(int,input().split())
+g=[[] for _ in range(a+1)]
+e=list(map(int,input().split()))
+f= list(map(int,input().split()))
+
+for u, v in zip(e,f):
+  g[u].append(v)
+  g[v].append(u)
+
+for i in range(1,a+1):
+  g[i].sort()
+past=[False] * (a+1)
+pre_existing = [-1] * (a+1)
+gap = [-1] * (a+1)
+queue = deque([c])
+past[c] =True
+gap[c] = 0
+
+while queue:
+    init = queue.popleft()
+    for j in g[init]:
+        if not past[j]:
+          past[j] =True
+          gap[j] = gap[init] + 1
+          pre_existing[j] = init
+          queue.append(j)
+
+          if j == d:
+            break
+
+if gap[d] == -1:
+   print(-1)
+
+else:
+ path = []
+ init = d
+ while init!=-1:
+    path.append(init)
+    init = pre_existing[init]
+
+ path.reverse()
+ print(gap[d])
+ print(" ".join(map(str, path)))

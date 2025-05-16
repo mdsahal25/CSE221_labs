@@ -1,0 +1,21 @@
+from collections import deque
+a,b = map(int,input().split())
+g=[[] for _ in range(a+1)]
+for _ in range(b):
+ u,v=map(int,input().split())
+ g[u].append(v)
+ g[v].append(u)
+for j in range(1,a+1):
+  g[j].sort()
+already_done = [0]*(a+1)
+queue = deque([1])
+already_done[1] = 1
+ade= []
+while queue:
+  u = queue.popleft()
+  ade.append(u)
+  for v in g[u]:
+    if already_done[v]==0:
+     already_done[v]=1
+     queue.append(v)
+print(" ".join(map(str,ade)))
