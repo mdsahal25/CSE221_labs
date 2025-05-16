@@ -1,0 +1,10 @@
+p,q=map(int, input().split())
+matrix=[]
+for _ in range(p):
+ matrix.append([0 for _ in range(p)])
+
+for i in range(q):
+ u,v,w = map(int, input().split())
+ matrix[u-1][v-1]=w
+for p in matrix:
+ print(' '.join(str(answer)for answer in p))
