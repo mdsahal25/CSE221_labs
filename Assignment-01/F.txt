@@ -1,0 +1,24 @@
+def DoubleselectionSort(id_number,marks,n):
+    swap_num = 0
+    for i in range(n - 1):
+        pointer = i
+        for j in range(i + 1, n):
+            if marks[j] > marks[pointer]:
+                pointer = j
+            elif marks[j] == marks[pointer]:
+                if id_number[j] < id_number[pointer]:
+                    pointer = j
+        if pointer != i:
+            marks[i], marks[pointer] = marks[pointer], marks[i]
+            id_number[i], id_number[pointer] = id_number[pointer], id_number[i]
+            swap_num += 1
+    return swap_num
+n = int(input())
+a=0
+id_number = list(map(int, input().split()))
+marks = list(map(int, input().split()))
+a=DoubleselectionSort(id_number,marks,n)
+
+print(f'Minimum swaps: {a}')
+for i in range(n):
+    print(f'ID: {id_number[i]} Mark: {marks[i]}')
