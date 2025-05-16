@@ -1,0 +1,14 @@
+
+import bisect 
+
+def BS(n):
+    i = bisect.bisect_left(n, '1')  
+    if i < len(n) :
+        return i + 1 
+    else:
+        return -1  
+
+T = int(input().strip())  
+for j in range(T):  
+    n = input().strip()  
+    print(BS(n))
